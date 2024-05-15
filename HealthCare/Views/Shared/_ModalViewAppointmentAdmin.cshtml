@@ -1,0 +1,185 @@
+﻿@model HealthCare.Model.ListofTables
+<!--The Modal-->
+<div class="form-group">
+    <form id="frmViewPatientDetails">
+
+        <div class="container container align-content-center justify-content-center">
+            <center><h5>Patient Details</h5></center>
+            <hr />
+            @if (Model != null)
+            {
+                foreach (var item in Model.ListofPatient)
+                {
+
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            <input type="hidden" name="Patient_Id" value="@item.Patient_Id" />
+                            <input type="hidden" name="Patient_Name" value="@item.Patient_First_Name" />
+                            <h6 class="d-inline-block">Full Name: </h6> <span class="d-inline-block fs-4">    @item.Patient_First_Name</span>
+
+
+                        </div>
+
+
+                    </div>
+                    <hr />
+
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            <h6 class="d-inline-block">Phone No: </h6> <span class="d-inline-block fs-4">    @item.Patient_Phone_No</span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            <h6 class="d-inline-block">Address: </h6> <span class="d-inline-block fs-4">    @item.Patient_Address</span>
+                        </div>
+                    </div>
+                    <hr />
+                }
+            }
+            <center><h5>Doctor Details</h5></center>
+            <hr />
+            @if (Model != null)
+            {
+                foreach (var item in Model.ListofAppointment)
+                {
+
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            <input type="hidden" name="Appointment_Id" value="@item.Appointment_Id" />
+                            <input type="hidden" name="Doctor_Id" value="@item.Doctor_Id" />
+                            <input type="hidden" name="Doctor_Name" value="@item." />
+                            <h6 class="d-inline-block">Dr. Name: </h6> <span class="d-inline-block fs-4">    @item.Doctor_Name</span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            <input type="hidden" name="Schedule_Date" value="@item.Schedule_Date" />
+                            <h6 class="d-inline-block">Appointment Date: </h6> <span class="d-inline-block fs-4">    @item.Schedule_Date</span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            <h6 class="d-inline-block">Appointment Day: </h6> <span class="d-inline-block fs-4">    @item.Appointment_Day</span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            @if (Model != null)
+                            {
+
+                                <h6 class="d-inline-block">Appointment Status: </h6> <span class="d-inline-block fs-4">
+
+                                    <select name="Appointment_Status_Id" id="Specialities" class="form-control">
+                                        <option selected value="@item.Appointment_Status_Id">@item.Appointment_Status</option>
+                                        @foreach (var listitem in Model.ListofAppointmentStatus)
+                                        {
+
+                                            <option value="@listitem.Appointment_Status_Id">@listitem.Status</option>
+                                        }
+
+                                    </select>
+
+
+                                </span>
+                            }
+
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mx-4">
+
+                        <div class="col-md-12">
+                            <input type="hidden" name="Time_Start" value="@item.Time_Start" />
+                            <input type="hidden" name="Time_end" value="@item.Time_end" />
+                            <h6 class="d-inline-block">Avaialable Time: </h6> <span class="d-inline-block fs-4">    @item.Time_Start AM - @item.Time_end PM</span>
+                        </div>
+                    </div>
+                    <hr />
+
+
+                    <div class="form-group">
+                        <textarea class="form-control" rows="4" cols="60" maxlength="300" name="Reason_For_Appointment" placeholder="Reason For Appointment" required readonly>@item.Reason_For_Appointment</textarea>
+                    </div>
+                }
+            }
+
+            <input class="btn btn-default float-right" type="button" data-dismiss="modal" value="Close" />
+            <input class="btn btn-info float-right mx-2" type="button" onclick="btnUpdate()" value="Update" />
+
+
+        </div>
+
+
+    </form>
+</div>
+<!--End of Modal-->
+
+
+<script>
+
+
+
+    var btnUpdate = function () {
+
+
+        var myData = $("#frmViewPatientDetails").serialize();
+
+        if (!$("#frmViewPatientDetails").valid()) {
+
+            return false;
+
+        }
+
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Admin/SaveViewAppointmentStatus',
+            data: myData,
+            success: function (response) {
+
+                if (response == "fail") {
+
+                    alert("Failed");
+                }
+
+
+
+                if (response == "true") {
+                    alert("Updated Successfully");
+                    window.location.href = "/Admin/Appointment_Details"
+
+                }
+
+            },
+            error: function () {
+
+
+                alert("There was a problem");
+
+
+            }
+
+
+
+        })
+
+
+
+    }
+
+</script>
+
+

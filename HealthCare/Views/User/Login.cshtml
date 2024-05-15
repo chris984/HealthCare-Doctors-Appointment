@@ -1,0 +1,134 @@
+﻿@model  HealthCare.Model.PatientViewModel
+@{
+    
+   Layout = "~/Views/Shared/_UserLogin.cshtml";
+    
+}
+
+
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Login</h1>
+                                </div>
+                                <div id="ErrMsg" class="alert alert-danger fade show">
+                                    Incorrect Email or Password<div class="btn btn-sm btn-close" @*data-bs-dismiss="alert"*@ aria-label="Close" style="margin-left:82px;" onclick="HideErr()">X</div>
+                                </div>
+                                <form id="LoginData" class="user">
+                                    <div class="form-group">
+
+                                        <input type="email" name="Email" id="Email" class="form-control form-control-user" required autocomplete="off" maxlength="30" placeholder="Email" />
+
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input type="password" name="Password" id="Password" class="form-control form-control-user" required autocomplete="off" maxlength="30" placeholder="Password" />
+
+                                    </div>
+
+                                    @*<div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label onclick="showPassword()" class="custom-control-label" for="customCheck">
+                                                Show
+                                                Password
+                                            </label>
+                                        </div>*@
+
+                                    <input class="btn btn-primary btn-user btn-block" type="button" value="Login" onclick="LoginUser()" />
+                                    <hr>
+                                </form>
+
+
+                                <div class="text-center">
+                                    <a class="small" href="#myModal" data-bs-toggle="modal">Create an Account!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@Html.Partial("/Views/Shared/_UserCreateAccount.cshtml")
+
+
+<script>
+
+    $("#ErrMsg").hide();
+
+
+    var LoginUser = function () {
+
+        var data = $("#LoginData").serialize();
+
+        if (!$("#LoginData").valid()) {
+
+            return false;
+
+        }
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/User/ValidateLogin',
+            data: data,
+            success: function (response) {
+                if (response == "Fail") {
+
+
+                    $("#ErrMsg").show();
+                    Cleartxt();
+
+                }
+                if (response == "Patient") {
+
+                    window.location.href = '/Patient/Index';
+
+                }
+            },
+            error: function () {
+
+                alert('There was a problem');
+            }
+
+
+        })
+    }
+
+    var Cleartxt = function () {
+        $("#Email").val('');
+        $("#Password").val('');
+
+    }
+
+    var HideErr = function () {
+
+        $("#ErrMsg").hide();
+
+    }
+
+
+
+
+</script>
+
+
+
+
+

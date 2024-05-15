@@ -1,0 +1,147 @@
+﻿@model HealthCare.Model.ListofTables
+@{
+    ViewBag.Title = "View Profile";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+
+}
+
+
+
+<h2>Profile</h2>
+
+
+<div class="container mx-auto mt-4 shadow rounded-2 bg-white p-3 mb-lg-5">
+
+
+    <form id="frmDoctorUpdate">
+        <div class="form-group">
+            @if (Model != null)
+            {
+                foreach (var item in Model.ListofDoctors)
+                {
+                    <div class="row mx-auto p-3">
+
+                        <div class="col-md-12">
+                            <label>Doctor Name</label>
+                            <input class="form-control" type="hidden" name="User_Id" value="@item.User_Id" />
+                            <input class="form-control" type="text" autocomplete="off" maxlength="30" name="Doctor_Name" value="@item.Doctor_Name" required />
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="row mx-auto p-3">
+
+                        <div class="col-md-6">
+                            <label>Email Address</label>
+                            <input class="form-control" type="text" autocomplete="off" maxlength="30" name="Email" value="@item.Email" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Password</label>
+                            <input class="form-control" type="text" autocomplete="off" maxlength="30" name="Password" value="@item.Password" required />
+                        </div>
+
+                    </div>
+                    <div class="row mx-auto p-3">
+                        <div class="col-md-6">
+                            <label>Degree/Education</label>
+                            <input class="form-control" type="text" autocomplete="off" maxlength="30" name="Degree" value="@item.Degree" required />
+                        </div>
+                        <div class="col-md-6">
+                            @if (Model != null)
+                            {
+
+                                <label>Specialty</label>
+                                <select name="Specialities" id="status" class="form-control">
+                                    <option selected value="@item.Specialities">@item.Specialities</option>
+                                    @foreach (var listspecial in Model.ListofSpecialties)
+                                    {
+                                        <option value="@listspecial.Specialties">@listspecial.Specialties</option>
+                                    }
+
+
+                                </select>
+
+
+                            }
+
+
+
+                        </div>
+                    </div>
+                    <div class="row mx-auto p-3">
+                        <div class="col-md-6">
+                            <label>Contact No</label>
+                            <input class="form-control" type="number" autocomplete="off" maxlength="30" name="Contact_No" value="@item.Contact_No" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Date of Birth</label>
+                            <input class="form-control" type="date" autocomplete="off" maxlength="30" name="Date_of_Birth" value="@item.Date_of_Birth" required />
+                        </div>
+
+                    </div>
+                    <div class="row mx-auto p-3">
+                        <div class="col-lg-12">
+                            <label>Complete Address</label>
+                            <textarea class="form-control" autocomplete="off" maxlength="50" name="Address">@item.Address</textarea>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <input type="button" class="btn btn-primary btn-block" onclick="btnUpdate()" value="Update">
+    </form>
+
+</div>
+
+
+<script>
+
+    var btnUpdate = function () {
+
+        var myData = $("#frmDoctorUpdate").serialize();
+
+        if (!$("#frmDoctorUpdate").valid()) {
+
+            return false;
+
+        }
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Doctor/UpdateDoctor',
+            data: myData,
+            success: function (response) {
+
+                if (response == "fail") {
+
+                    alert("Failed");
+                }
+
+                if (response == "true") {
+
+                    alert('Updated Successfully');
+                    window.location.href = "/Doctor/View_Profile";
+                }
+
+
+
+            },
+
+            error: function () {
+
+                alert("There was a problem");
+
+            }
+
+
+
+        })
+
+    }
+
+</script>

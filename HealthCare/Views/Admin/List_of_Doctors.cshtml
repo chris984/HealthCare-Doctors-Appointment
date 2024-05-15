@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "Doctor list";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<a href="/Admin/Add_Doctors" class="btn btn-success"><li class="fas fa-user-plus"></li> Add Doctor</a>
+
+
+<div class="container mx-auto mt-4 shadow rounded-2 bg-white p-3 mb-lg-5">
+
+    <div class="row @*d-block*@ ">
+        <div class="col-lg-12">
+
+
+            <table class="cell-border row-border border hover display" id="MyDataTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Degree</th>
+                        <th>Specialization</th>
+                        <th>Contact No</th>
+                        <th>Date of Birth</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr>
+                    <td>Wallis Davis</td>
+                    <td>Wallis@Gmail.com</td>
+                    <td>davis123</td>
+                    <td>M.D.</td>
+                    <td>Neurologist</td>
+                    <td>09738484332</td>
+                    <td>11-08-21</td>
+                    <td>Quezon City</td>
+                    <td class="mx-1 fas fa-edit btn-success rounded"></td>-->
+                    @*<td class="mx-1 fas fa-trash-alt btn-danger rounded"></td>*@
+                    <!--</tr>-->
+                </tbody>
+
+            </table>
+        </div>
+        <input type="hidden" id="HiddenId" />
+    </div>
+</div>
+
+<!--The Modal-->
+<div class="modal fade" id="showDoctorDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text text-dark">Edit Doctor Details</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+
+            </div>
+            @*<div class="modal-footer">
+                    <input type="button" onclick="btnEditSpeciality()" class="btn btn-info" value="Save Changes">
+                    <input type="button" value="Close" data-dismiss="modal" class="btn btn-outline-info" />
+                </div>*@
+        </div>
+    </div>
+</div>
+<!--End of Modal-->
+
+
+
+<!--Delete Modal-->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h3 class="modal-title">Delete Doctor  </h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <h4>Are you sure ? You want to delete this. </h4>
+
+                <div style="text-align:center;display:none" id="loaderDiv">
+                    <img src="~/Content/InternetSlowdown_Day.gif" width="150" />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn btn-success" onclick="btnConfirmDelete()">Confirm</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--End of Delete Modal-->
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        /*$("#MyDataTable").DataTable();*/
+
+        BindDataTable();
+
+    })
+
+    var BindDataTable = function (response) {
+
+        $("#MyDataTable").DataTable({
+
+            "scrollX": true,
+            "serverSide": true,
+            "sAjaxSource": "/Admin/GetDoctorRecord",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+
+                $.ajax({
+                    type: "GET",
+                    data: aoData,
+                    url: sSource,
+                    success: fnCallback
+
+
+                })
+
+            },
+            "aoColumns": [
+
+                {
+                    "data": "User_Id",
+                    "render": function (User_Id, type, full, meta) {
+                        return '<a href="#myModal" onclick="btnEditDoctor(' + User_Id + ')" class="mx-1 fas fa-edit btn btn-success rounded d-inline"></a><a href="#myModal" onclick="btnDeleteDoctor(' + User_Id + ')" class="mx-1 fas fa-trash-alt btn btn-danger rounded d-inline"></a>'
+                    }
+                },
+                { "mData": "Doctor_Name" },
+                { "mData": "Email" },
+                { "mData": "Password" },
+                { "mData": "Degree" },
+                { "mData": "Specialities" },
+                { "mData": "Contact_No" },
+                { "mData": "Date_of_Birth" },
+                { "mData": "Address" },
+                
+
+            ]
+
+
+        });
+
+
+
+    }
+
+    var btnEditDoctor = function (userId) {
+
+
+        var url = "/Admin/EditDoctor?User_Id=" + userId;
+
+        $("#myModalBodyDiv").load(url, function () {
+            $("#showDoctorDetails").modal("show");
+
+        })
+
+
+    }
+
+
+    var btnDeleteDoctor = function (userId) {
+
+        $("#HiddenId").val(userId);
+        $("#myModal").modal("show");
+
+    }
+
+    var btnConfirmDelete = function () {
+
+
+
+        var UserId = $("#HiddenId").val();
+
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Admin/DeleteDoctor',
+            data: { User_Id: UserId},
+            success: function (response) {
+
+                if (response == true) {
+
+                    window.location.href = "/Admin/List_of_Doctors";
+                    
+                }
+
+            },
+            error: function () {
+
+                alert('There was a problem');
+
+
+            }
+
+
+
+        })
+
+
+
+
+
+    }
+
+
+
+
+</script>

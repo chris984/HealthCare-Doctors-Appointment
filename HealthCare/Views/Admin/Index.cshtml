@@ -1,0 +1,185 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/Template/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/Template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <title>Login</title>
+
+
+    <style>
+
+
+        .error {
+            color: red;
+            float: right;
+            width: 100%;
+            font-size: 11pt;
+            border-color: red;
+        }
+    </style>
+
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                <div class="d-flex justify-content-center py-4">
+                    <a href="index.html" class="logo d-flex align-items-center w-auto">
+                        @*<img src="assets/img/logo.png" alt="">*@
+                        <span class="d-none d-lg-block"></span>
+                    </a>
+                </div>
+
+                <div class="card mb-3">
+
+                    <div class="card-body">
+
+                        <div class="pt-4 pb-2">
+                            <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                            <p class="text-center small">Enter your username &amp; password to login</p>
+                        </div>
+
+                        <div id="Errmsg" class="alert alert-danger fade show">
+                            Incorrect Email or Password<div class="btn btn-sm btn-close" @*data-bs-dismiss="alert"*@ aria-label="Close" style="margin-left:43px;" onclick="HideErr()">X</div>
+                        </div>
+
+                        <form id="frmAdminData" class="row g-3 needs-validation" novalidate="">
+
+                            <div class="col-12">
+
+                                <label for="yourUsername" class="form-label">Email</label>
+                                <div class="input-group has-validation">
+                                    <input type="email" name="Email" class="form-control" autocomplete="off" maxlength="30" id="email" required>
+                                    <div class="invalid-feedback">Please enter your username.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 my-4">
+                                <label for="yourPassword" class="form-label">Password</label>
+                                <input type="password" name="Password" class="form-control" autocomplete="off" maxlength="30" id="password" required>
+                                <div class="invalid-feedback">Please enter your password!</div>
+                            </div>
+
+                            @*<div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                    <label class="form-check-label" for="showpassword">Show Password</label>
+                                </div>
+                            </div>*@
+                            <div class="col-12">
+                                <button onclick="btnLogin()" class="btn btn-primary w-100" type="button">Login</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/Template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Template/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+
+    <script>
+
+        $("#Errmsg").hide();
+
+
+
+        var btnLogin = function () {
+
+            var frmData = $("#frmAdminData").serialize();
+
+            if (!$("#frmAdminData").valid()) {
+
+                return false;
+
+            }
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Admin/ValidateAdminLogin',
+                data: frmData,
+                success: function (response) {
+
+                    if (response == "Fail") {
+
+                       
+                        Cleartxtfield();
+                        $("#Errmsg").show();
+
+                    }
+
+                    if (response == "Admin") {
+
+                        window.location.href = '/Admin/Dashboard';
+
+                    }
+                    if (response == "Doctor") {
+
+                        window.location.href = '/Doctor/Index';
+                    }
+
+
+
+
+                },
+                error: function () {
+
+                    alert('There was a problem');
+
+                }
+            })
+        }
+
+        var Cleartxtfield = function(){
+
+            $("#email").val('');
+            $("#password").val('');
+
+
+        }
+
+        var HideErr = function () {
+
+            $("#Errmsg").hide();
+
+        }
+
+
+
+    </script>
+
+
+</body>
+</html>
+
+

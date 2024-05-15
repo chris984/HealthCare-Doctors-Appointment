@@ -1,0 +1,117 @@
+﻿@model HealthCare.Model.AdminViewModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">Profile</h1>
+
+
+<div class="container">
+
+    <form id="AdminData">
+        <div class="row">
+            <div class="col-md-8">
+                <span id="message"></span><div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="m-0 font-weight-bold text-primary">Profile</h6>
+                            </div>
+                            @*<div clas="col" align="right">
+                                    <input type="hidden" name="action" value="admin_profile" />
+                                    <button type="submit" name="edit_button" id="edit_button" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</button>
+                                    &nbsp;&nbsp;
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!--<div class="row">
+    <div class="col-md-6">!-->
+                        <div class="form-group">
+                            <label>Admin Name</label>
+                            <input type="text" name="name" value="@Model.Name" id="name" class="form-control" required data-parsley-trigger="keyup" maxlength="30" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hospital Name</label>
+                            <input type="text" name="hospital_name" value="@Model.Hospital_Name" id="hospital_name" class="form-control" required data-parsley-trigger="keyup" maxlength="30" />
+                        </div>
+                        <div class="form-group">
+                            <label>Hospital Address</label>
+                            <textarea name="hospital_address" id="hospital_address" class="form-control" maxlength="150" required>@Model.Hospital_Address</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Hospital Contact No.</label>
+                            <input type="text" name="hospital_contact_no" value="@Model.Hospital_Contact_No" id="hospital_contact_no" class="form-control" maxlength="30" required data-parsley-trigger="keyup" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="Email" value="@Model.Email" id="name" class="form-control" required data-parsley-trigger="keyup" maxlength="30" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="text" name="password" value="@Model.Password" id="name" class="form-control" required data-parsley-trigger="keyup" maxlength="30" />
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Photo</label><br />
+                            <input type="file" name="hospital_logo" id="hospital_logo" />
+                            <span id="uploaded_hospital_logo"></span>
+                        </div>
+
+                        <!--</div>
+    </div>!-->
+                        <div class="col" align="right">
+                            <input class="btn btn-primary btn-block" onclick="SaveProfile()" type="button" name="name" value="Save Changes" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script>
+
+    var SaveProfile = function () {
+
+        var data = $("#AdminData").serialize();
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Admin/SaveProfile',
+            data: data,
+            success: function (response) {
+
+                if (response == "fail") {
+
+                    alert("Failed");
+                }
+
+                if (response == "true") {
+
+                    alert('Updated Successfully');
+                    window.location.href = "/Admin/AdminProfile";
+                }
+
+
+            }
+
+
+        })
+
+
+
+    }
+
+
+
+
+
+</script>
+
+

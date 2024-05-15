@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HealthcareDBModelStoreContainer" CdmEntityContainer="HealthcareDBEntities">
+    <EntitySetMapping Name="AdminTables">
+      <EntityTypeMapping TypeName="HealthcareDBModel.AdminTable">
+        <MappingFragment StoreEntitySet="AdminTable">
+          <ScalarProperty Name="Hospital_Contact_No" ColumnName="Hospital_Contact_No" />
+          <ScalarProperty Name="Hospital_Address" ColumnName="Hospital_Address" />
+          <ScalarProperty Name="Hospital_Name" ColumnName="Hospital_Name" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointment_Status">
+      <EntityTypeMapping TypeName="HealthcareDBModel.Appointment_Status">
+        <MappingFragment StoreEntitySet="Appointment_Status">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Appointment_Status_Id" ColumnName="Appointment_Status_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentTables">
+      <EntityTypeMapping TypeName="HealthcareDBModel.AppointmentTable">
+        <MappingFragment StoreEntitySet="AppointmentTable">
+          <ScalarProperty Name="Doctor_Comment" ColumnName="Doctor_Comment" />
+          <ScalarProperty Name="Appointment_Status_Id" ColumnName="Appointment_Status_Id" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Reason_For_Appointment" ColumnName="Reason_For_Appointment" />
+          <ScalarProperty Name="Doctor_Schedule_Id" ColumnName="Doctor_Schedule_Id" />
+          <ScalarProperty Name="Patient_Id" ColumnName="Patient_Id" />
+          <ScalarProperty Name="Doctor_Id" ColumnName="Doctor_Id" />
+          <ScalarProperty Name="Appointment_Id" ColumnName="Appointment_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="HealthcareDBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctor_Schedule_Table">
+      <EntityTypeMapping TypeName="HealthcareDBModel.Doctor_Schedule_Table">
+        <MappingFragment StoreEntitySet="Doctor_Schedule_Table">
+          <ScalarProperty Name="Time_end" ColumnName="Time_end" />
+          <ScalarProperty Name="Time_start" ColumnName="Time_start" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Schedule_Date" ColumnName="Schedule_Date" />
+          <ScalarProperty Name="Doctor_Id" ColumnName="Doctor_Id" />
+          <ScalarProperty Name="Doctor_Schedule_Id" ColumnName="Doctor_Schedule_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctor_Table">
+      <EntityTypeMapping TypeName="HealthcareDBModel.Doctor_Table">
+        <MappingFragment StoreEntitySet="Doctor_Table">
+          <ScalarProperty Name="Img" ColumnName="Img" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Date_of_Birth" ColumnName="Date_of_Birth" />
+          <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+          <ScalarProperty Name="Specialities" ColumnName="Specialities" />
+          <ScalarProperty Name="Degree" ColumnName="Degree" />
+          <ScalarProperty Name="Doctor_Name" ColumnName="Doctor_Name" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Doctor_Id" ColumnName="Doctor_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Specialties">
+      <EntityTypeMapping TypeName="HealthcareDBModel.Specialty">
+        <MappingFragment StoreEntitySet="Specialty">
+          <ScalarProperty Name="Specialties" ColumnName="Specialties" />
+          <ScalarProperty Name="Sp_Id" ColumnName="Sp_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patient_Gender">
+      <EntityTypeMapping TypeName="HealthcareDBModel.Patient_Gender">
+        <MappingFragment StoreEntitySet="Patient_Gender">
+          <ScalarProperty Name="Patient_gender_type" ColumnName="Patient_gender_type" />
+          <ScalarProperty Name="Patient_Gender_Type_Id" ColumnName="Patient_Gender_Type_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patient_Status">
+      <EntityTypeMapping TypeName="HealthcareDBModel.Patient_Status">
+        <MappingFragment StoreEntitySet="Patient_Status">
+          <ScalarProperty Name="Patient_Status1" ColumnName="Patient_Status" />
+          <ScalarProperty Name="Patient_Marital_Status_Id" ColumnName="Patient_Marital_Status_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PatientTables">
+      <EntityTypeMapping TypeName="HealthcareDBModel.PatientTable">
+        <MappingFragment StoreEntitySet="PatientTable">
+          <ScalarProperty Name="Patient_Marital_Status_Id" ColumnName="Patient_Marital_Status_Id" />
+          <ScalarProperty Name="Patient_Phone_No" ColumnName="Patient_Phone_No" />
+          <ScalarProperty Name="Patient_Address" ColumnName="Patient_Address" />
+          <ScalarProperty Name="Patient_Gender_Type_Id" ColumnName="Patient_Gender_Type_Id" />
+          <ScalarProperty Name="Patient_Date_of_Birth" ColumnName="Patient_Date_of_Birth" />
+          <ScalarProperty Name="Patient_Name" ColumnName="Patient_Name" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Patient_Id" ColumnName="Patient_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role_Type">
+      <EntityTypeMapping TypeName="HealthcareDBModel.Role_Type">
+        <MappingFragment StoreEntitySet="Role_Type">
+          <ScalarProperty Name="RoleType" ColumnName="RoleType" />
+          <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Table">
+      <EntityTypeMapping TypeName="HealthcareDBModel.User_Table">
+        <MappingFragment StoreEntitySet="User_Table">
+          <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

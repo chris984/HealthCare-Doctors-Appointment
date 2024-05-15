@@ -1,0 +1,79 @@
+﻿@model List<HealthCare.Model.SpecialityViewModel>
+<div>
+    <form id="myForm">
+
+
+
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="row mx-auto p-3">
+                    <label>Speciality</label>
+                    <input class="form-control" type="hidden" name="Sp_Id" value="@item.Sp_Id" />
+                    <input class="form-control" type="text" autocomplete="off" name="Specialties" value="@item.Specialties" maxlength="30" id="Specialties" required />
+                </div>
+            }
+
+        }
+        <input onclick="SaveSp_Id()" class="btn btn-primary btn-block" type="button" value="Save" />
+
+    </form>
+
+
+
+    <script>
+
+
+        var SaveSp_Id = function () {
+
+            var data = $("#myForm").serialize();
+
+
+            if (!$("#myForm").valid()) {
+
+                return false;
+            }
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Admin/SaveSp_Id',
+                data: data,
+                success: function (response) {
+
+                    if (response == "fail") {
+
+                        $("#ErrMsg2").show();
+                        return false;
+                    }
+
+                    if (response == "true") {
+                        $("#ErrMsg2").hide();
+                        $("#showSpeciality").modal("hide");
+                        alert('Saved Successfully');
+                        window.location.href = "/Admin/Add_Specialities";
+
+
+                    }
+
+
+                }
+
+
+
+            })
+
+
+
+        }
+
+
+
+
+
+    </script>
+
+
+
+</div>

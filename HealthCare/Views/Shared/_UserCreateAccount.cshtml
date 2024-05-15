@@ -1,0 +1,143 @@
+﻿<!--The Modal-->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text text-dark">Patient Information</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <form id="frmRegister">
+                <div class="modal-body">
+                    <div class="form-group">
+
+
+                        <div class="row mx-auto p-3">
+
+                            <div class="col-md-6">
+                                <label>Firstname</label>
+                                <input class="form-control" type="text" autocomplete="off" maxlength="30" name="Patient_First_Name" value="" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label>Lastname</label>
+                                <input class="form-control" type="text" autocomplete="off" maxlength="30" name="Patient_Last_Name" value="" required />
+                            </div>
+
+                        </div>
+                        <div class="row mx-auto p-3">
+
+                            <div class="col-md-6">
+                                <label>Date of Birth</label>
+                                <input class="form-control" type="date" autocomplete="off" maxlength="30" name="Patient_Date_of_Birth" value="" required />
+                            </div>
+                            <div class="col-md-6">
+                                @if (Model != null)
+                                {
+                                    <label>Gender</label>
+                                    <select name="Patient_Gender_Type_Id" id="gender" class="form-control" required>
+                                        <option selected disabled value="">---Select Gender---</option>
+                                        @foreach (var item in Model.ListofType)
+                                        {
+                                            <option value="@item.Patient_Gender_Type_Id">@item.Patient_gender_type</option>
+                                        }
+
+                                    </select>
+                                }
+                                </div>
+
+                        </div>
+                        <div class="row mx-auto p-3">
+                            <div class="col-md-6">
+                                <label>Contact No</label>
+                                <input class="form-control" type="number" autocomplete="off" name="Patient_Phone_No" value="" required />
+                            </div>
+                            <div class="col-md-6">
+
+                                @if (Model != null)
+                                {
+                                    <label>Status</label>
+                                    <select name="Patient_Marital_Status_Id" id="status" class="form-control" required>
+                                        <option selected disabled value="">---Select Status---</option>
+                                        @foreach (var item in Model.ListofStatus)
+                                        {
+                                        <option value="@item.Patient_Marital_Status_Id">@item.Patient_Status1</option>
+                                        }
+                                    </select>
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="row mx-auto p-3">
+
+                            <div class="col-md-6">
+                                <label>Email</label>
+                                <input class="form-control" type="email" autocomplete="off" maxlength="30" name="Email" value="" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label>Password</label>
+                                <input class="form-control" type="password" autocomplete="off" maxlength="30" name="Password" value="" required />
+                            </div>
+
+                        </div>
+                        <div class="row mx-auto p-3">
+                            <div class="col-lg-12">
+                                <label>Complete Address</label>
+                                <textarea class="form-control" autocomplete="off" maxlength="50" name="Patient_Address"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-primary btn-block" onclick="btnRegister()" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End of Modal-->
+
+<script>
+
+
+    var btnRegister = function () {
+
+        var myData = $("#frmRegister").serialize();
+
+        if (!$("#frmRegister").valid()) {
+
+            return false;
+
+        }
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/User/RegisterUser',
+            data: myData,
+            success: function (data) {
+
+                if (data.success === true) {
+
+                    alert(data.message);
+                    window.location.href = "/User/Login";
+
+                }
+                
+
+            },
+            error: function () {
+
+                alert('There was a problem');
+            }
+
+
+
+        })
+
+    }
+
+
+</script>
+
+

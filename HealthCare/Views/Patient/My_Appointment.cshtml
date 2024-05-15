@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "HealthCare";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">My Appointment List</h3>
+    </div>
+
+    <!-- /.card-header -->
+    <div class="card-body">
+
+
+        <div class="row @*d-block*@ ">
+            <div class="col-lg-12">
+
+
+                <table class="display" id="AppointmentDataTable">
+                    <thead>
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Appointment Date</th>
+                            <th>Appointment Time</th>
+                            <th>Appointment Day</th>
+                            <th>Appointmeny Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                </table>
+            </div>
+            <input type="hidden" id="HiddenId" />
+        </div>
+
+    </div>
+    <!-- /.card-body -->
+
+</div>
+
+<script>
+
+
+
+    $(document).ready(function () {
+
+
+        GetPatientAppointment();
+
+    })
+
+    var GetPatientAppointment = function () {
+
+
+        $.ajax({
+
+            type: "GET",
+            url: "/Patient/GetPatientAppointmentRecord",
+            success: function (response) {
+
+                BindDataTable(response);
+
+
+            },
+
+            error: function () {
+
+                alert("There was a problem");
+
+            }
+
+
+        })
+
+
+
+    }
+
+    var BindDataTable = function (response) {
+
+        $("#AppointmentDataTable").DataTable({
+
+            "aaData": response,
+            "aoColumns": [
+
+                { "mData": "Doctor_Name" },
+                { "mData": "Schedule_Date" },
+                { "mData": "Appointment_Time" },
+                { "mData": "Appointment_Day" },
+                { "mData": "Appointment_Status" },
+                {
+                    "mData": "Appointment_Id",
+                    "render": function (Appointment_Id, type, full, meta) {
+
+                        return '<a href="#myModal" data-toggle="modal" onclick="btnCancel(' + Appointment_Id + ')" class="btn btn-danger">Cancel</a>'
+                    }
+
+                }
+            ]
+
+        })
+
+    }
+
+
+
+
+
+
+    var btnCancel = function (AppointmentId) {
+
+       
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Patient/CancelPatientAppointment',
+            data: { Appointment_Id: AppointmentId},
+            success: function (result) {
+
+                if (result === true) {
+
+                    window.location.href = "/Patient/My_Appointment";
+
+                }
+
+                if (result === false) {
+
+                    alert("Failed");
+
+                }
+              
+
+            },
+            error: function () {
+
+
+                alert("There was a problem");
+
+            }
+
+
+
+        })
+
+
+
+    }
+
+
+
+
+
+</script>
+

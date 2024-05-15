@@ -1,0 +1,152 @@
+﻿@model HealthCare.Model.ListofTables
+<div>
+    <form id="frmPatientData">
+
+
+        <div class="form-group">
+
+           @if (Model != null)
+           {
+               foreach (var item in Model.ListofPatient)
+               {
+
+          
+
+            <div class="row mx-auto p-3">
+
+                <div class="col-md-12">
+                    <label>Firstname</label>
+                    <input class="form-control" type="hidden" autocomplete="off" maxlength="30" name="User_Id" value="@item.User_Id" required />
+                    <input class="form-control" type="text" autocomplete="off" maxlength="30" name="Patient_First_Name" value="@item.Patient_First_Name" required />
+                </div>
+            </div>
+            <div class="row mx-auto p-3">
+
+                <div class="col-md-6">
+                    <label>Date of Birth</label>
+                    <input class="form-control" type="date" autocomplete="off" maxlength="30" name="Patient_Date_of_Birth" value="@item.Patient_Date_of_Birth" required />
+                </div>
+                <div class="col-md-6">
+                    @if (Model != null)
+                    {
+                        <label>Gender</label>
+                        <select name="Patient_Gender_Type_Id" id="gender" class="form-control" required>
+                            <option selected value="@item.Patient_Gender_Type_Id">@item.Patient_Gender_Type</option>
+                            @foreach (var gendertype in Model.ListofGender)
+                            {
+                                <option value="@gendertype.Patient_Gender_Type_Id">@gendertype.Patient_gender_type</option>
+                            }
+
+                        </select>
+                    }
+                </div>
+
+            </div>
+            <div class="row mx-auto p-3">
+                <div class="col-md-6">
+                    <label>Contact No</label>
+                    <input class="form-control" type="number" autocomplete="off" name="Patient_Phone_No" value="@item.Patient_Phone_No" required />
+                </div>
+                <div class="col-md-6">
+
+                    @if (Model != null)
+                    {
+                        <label>Status</label>
+                        <select name="Patient_Marital_Status_Id" id="status" class="form-control" required>
+                            <option selected value="@item.Patient_Marital_Status_Id">@item.Patient_Marital_Status</option>
+                            @foreach (var MaritalStatus in Model.ListofPatientMaritalStatus)
+                            {
+                                <option value="@MaritalStatus.Patient_Marital_Status_Id">@MaritalStatus.Patient_Status1</option>
+                            }
+                        </select>
+                    }
+
+
+                </div>
+            </div>
+            <div class="row mx-auto p-3">
+
+                <div class="col-md-6">
+                    <label>Email</label>
+                    <input class="form-control" type="email" autocomplete="off" maxlength="30" name="Email" value="@item.Email" required />
+                </div>
+                <div class="col-md-6">
+                    <label>Password</label>
+                    <input class="form-control" type="password" autocomplete="off" maxlength="30" name="Password" value="@item.Password" required />
+                </div>
+
+            </div>
+            <div class="row mx-auto p-3">
+                <div class="col-lg-12">
+                    <label>Complete Address</label>
+                    <textarea class="form-control" autocomplete="off" maxlength="50" name="Patient_Address" required>@item.Patient_Address</textarea>
+                </div>
+            </div>
+
+            <!---->
+               }
+           }
+
+        </div>
+
+
+        <input onclick="btnSavePatient()" class="btn btn-primary btn-block" type="button" value="Save Changes" />
+
+
+
+    </form>
+
+
+
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+
+
+        var btnSavePatient = function () {
+
+            var data = $("#frmPatientData").serialize();
+
+
+            if (!$("#frmPatientData").valid()) {
+
+                return false;
+            }
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Admin/SavePatient',
+                data: data,
+                success: function (response) {
+
+                    if (response == "fail") {
+
+                        alert('Failed');
+                    }
+
+                    if (response == "true") {
+                        alert('Saved Successfully');
+                        window.location.href = "/Admin/List_of_Patient";
+
+
+                    }
+
+
+                }
+
+
+
+            })
+
+
+
+        }
+
+    </script>
+
+
+
+</div>

@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "HealthCare";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Doctor Schedule List</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+
+
+        <div class="row @*d-block*@ ">
+            <div class="col-lg-12">
+
+
+                <table class="display" id="MyDataTable">
+                    <thead>
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Education</th>
+                            <th>Speciality</th>
+                            <th>Appointment Date</th>
+                            <th>Appointment Day</th>
+                            <th>Available Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+
+                </table>
+            </div>
+            <input type="hidden" id="HiddenId" />
+        </div>
+
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+<!--The Modal-->
+<div class="modal fade" id="showPatientDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text text-dark">Book Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body text text-dark" id="myModalBodyDiv">
+
+                
+
+
+            </div>
+            @*<div class="modal-footer">
+                    <input type="button" onclick="btnEditSpeciality()" class="btn btn-info" value="Save Changes">
+                    <input type="button" value="Close" data-dismiss="modal" class="btn btn-outline-info" />
+                </div>*@
+        </div>
+    </div>
+</div>
+<!--End of Modal-->
+
+<script>
+
+    $(document).ready(function () {
+
+
+        GetDoctorAvailableTime();
+
+    })
+
+    var GetDoctorAvailableTime = function () {
+
+
+        $.ajax({
+
+            type: "GET",
+            url: "/Patient/GetDoctorScheduleRecord",
+            success: function (response) {
+
+                BindDataTable(response);
+
+
+            },
+
+            error: function () {
+
+                alert("There was a problem");
+
+            }
+
+
+        })
+
+
+
+    }
+
+    var BindDataTable = function (response) {
+
+        $("#MyDataTable").DataTable({
+
+            "aaData": response,
+            "aoColumns": [
+
+                { "mData": "Doctor_Name" },
+                { "mData": "Degree" },
+                { "mData": "Specialities" },
+                { "mData": "Schedule_Date" },
+                { "mData": "Day" },
+                { "mData": "Time_start" },
+                {
+                    "mData": "Doctor_Schedule_Id",
+                    "render": function (Doctor_Schedule_Id, type, full, meta) {
+
+                        return '<a href="#myModal" data-toggle="modal" onclick="btnGetAppointment(' + Doctor_Schedule_Id + ')" class="btn btn-info">Get Appointment</a>'
+                    }
+
+                }
+            ]
+
+        })
+
+    }
+
+
+
+    var btnGetAppointment = function (DoctorScheduleId) {
+
+
+        var url = "/Patient/GetDoctorScheduleId?Doctor_Schedule_Id=" + DoctorScheduleId;
+
+        $("#myModalBodyDiv").load(url, function () {
+            $("#showPatientDetails").modal("show");
+
+        })
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+</script>
+
+
+

@@ -1,0 +1,16 @@
+#output directory
+build
+dist
+
+# vs code config
+.vs
+
+
+
+# dependencies
+packages
+
+/HealthCare/Scripts
+/HealthCare/FontAwesome
+/HealthCare/Template
+

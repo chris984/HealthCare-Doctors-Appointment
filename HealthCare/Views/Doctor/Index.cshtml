@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+
+<a href="#myModal" data-toggle="modal" class="btn btn-success"><li class="fas fa-user-plus"></li> Add Schedule</a>
+
+
+<div class="container mx-auto mt-4 shadow rounded-2 bg-white p-3 mb-lg-5">
+
+    <div class="row @*d-block*@ ">
+        <div class="col-lg-12">
+
+
+            <table class="display" id="MyDataTable">
+                <thead>
+                    <tr>
+                        <th>Schedule Date</th>
+                        <th>Day</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*<tr>
+                        <td>Wallis Davis</td>
+                        <td>Wallis@Gmail.com</td>
+                        <td>davis123</td>
+                        <td>M.D.</td>
+                        <td>Neurologist</td>
+                        <td>09738484332</td>
+                        <td>11-08-21</td>
+                        <td>Quezon City</td>
+                        <td class="mx-1 fas fa-edit btn-success rounded"></td>
+                        <td class="mx-1 fas fa-trash-alt btn-danger rounded"></td>
+                        </tr>*@
+                </tbody>
+
+            </table>
+        </div>
+        <input type="hidden" id="HiddenId" />
+    </div>
+</div>
+
+
+<!--The Modal-->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text text-dark">Set Schedule</h5>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <form id="frmAddSchedule">
+                <div class="modal-body">
+
+                    <div class="row mx-auto p-3">
+                        <label>Date:</label>
+                        <input class="form-control" type="date" autocomplete="off" name="Schedule_Date" value="" required />
+                    </div>
+                    <div class="row mx-auto p-3">
+                        <label>Start Time:</label>
+                        <input class="form-control" type="time" autocomplete="off" name="Time_start" value="" required />
+                    </div>
+
+                    <div class="row mx-auto p-3">
+                        <label>End Time:</label>
+                        <input class="form-control" type="time" autocomplete="off" name="Time_end" value="" required />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input id="btnClose" type="button" onclick="btnAddSchedule()" class="btn btn-info btn-block" value="Add">
+                    @*<input type="button" value="Close" data-dismiss="modal" class="btn btn-outline-info" />*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End of Modal-->
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+        GetDoctorRecord();
+    })
+
+    var GetDoctorRecord = function () {
+
+        $.ajax({
+
+            type: "GET",
+            url: "/Doctor/GetDoctorRecord",
+            success: function (response) {
+
+                BindDataTable(response);
+            }
+
+        })
+
+    }
+
+    var BindDataTable = function (response) {
+
+        $("#MyDataTable").DataTable({
+
+
+            "aaData": response,
+            "aoColumns": [
+
+                { "mData": "Schedule_Date" },
+                { "mData": "Day" },
+                { "mData": "Time_start" },
+                { "mData": "Time_end" },
+
+
+            ]
+
+
+
+        })
+
+    }
+
+    var btnAddSchedule = function () {
+
+        var myData = $("#frmAddSchedule").serialize();
+
+        if (!$("#frmAddSchedule").valid()) {
+
+            return false;
+        }
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Doctor/AddDoctorSchedule',
+            data: myData,
+            success: function (response) {
+
+                if (response == "fail") {
+
+                    alert("Failed");
+                }
+
+                if (response == "true") {
+
+                    alert("Schedule Added");
+                    window.location.href = "/Doctor/Index";
+                }
+
+            },
+
+            error: function () {
+
+                alert("There was a problem");
+
+            }
+
+
+
+        })
+
+
+
+    }
+
+</script>
+
+
+

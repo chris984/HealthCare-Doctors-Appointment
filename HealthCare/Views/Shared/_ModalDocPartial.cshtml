@@ -1,0 +1,119 @@
+﻿@model HealthCare.Model.ListofTables
+<div>
+    <form id="frmDoctorData">
+
+        <div class="form-group">
+            @if (Model != null)
+            {
+                foreach (var item in Model.ListofDoctors)
+                {
+                    <div class="row mx-auto p-3">
+                        <div class="col-md-12">
+                            <label>Doctor Name</label>
+                            <input class="form-control" type="hidden" name="User_Id" value="@item.User_Id" />
+                            <input class="form-control" type="text" autocomplete="off" name="Doctor_Name" value="@item.Doctor_Name" maxlength="30" id="Doctor_Name" required />
+                        </div>
+                        <div class="col-md-12 p-3">
+                            <label>Email</label>
+                            <input class="form-control" type="email" autocomplete="off" name="Email" value="@item.Email" maxlength="30" id="Email" required />
+                        </div>
+                        <div class="col-md-12 p-3">
+                            <label>Password</label>
+                            <input class="form-control" type="text" autocomplete="off" name="Password" value="@item.Password" maxlength="30" id="Password" required />
+                        </div>
+                        <div class="col-md-12 p-3">
+                            <label>Degree</label>
+                            <input class="form-control" type="text" autocomplete="off" name="Degree" value="@item.Degree" maxlength="30" id="Degree" required />
+                        </div>
+                        <div class="col-md-12 p-3">
+                            @if (Model != null)
+                            {
+
+
+                                <label>Specialization</label>
+                                <select name="Specialities" id="Specialities" class="form-control">
+                                    <option selected value="@item.Specialities">@item.Specialities</option>
+                                    @foreach (var listitem in Model.ListofSpecialties)
+                                    {
+
+                                        <option value="@listitem.Specialties">@listitem.Specialties</option>
+                                    }
+
+                                </select>
+                            }
+                        </div>
+                        <div class="col-md-12 p-3">
+                            <label>Contact No</label>
+                            <input class="form-control" type="number" autocomplete="off" name="Contact_No" value="@item.Contact_No" maxlength="30" id="Contact_No" required />
+                        </div>
+                        <div class="col-md-12 p-3">
+                            <label>Date of Birth</label>
+                            <input class="form-control" type="date" autocomplete="off" name="Date_of_Birth" value="@item.Date_of_Birth" maxlength="30" id="Date_of_Birth" required />
+                        </div>
+                        <div class="col-md-12 p-3">
+                            <label>Address</label>
+                            <textarea class="form-control" autocomplete="off" name="Address" maxlength="50" id="Address">@item.Address</textarea>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+        <input onclick="SaveDoctor()" class="btn btn-primary btn-block" type="button" value="Save Changes" />
+
+    </form>
+
+
+
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+
+
+        var SaveDoctor = function () {
+
+            var data = $("#frmDoctorData").serialize();
+
+
+            if (!$("#frmDoctorData").valid()) {
+
+                return false;
+            }
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Admin/SaveDoctor',
+                data: data,
+                success: function (response) {
+
+                    if (response == "fail") {
+
+                        alert('Failed');
+                    }
+
+                    if (response == "true") {
+                        alert('Saved Successfully');
+                        window.location.href = "/Admin/List_of_Doctors";
+
+
+                    }
+
+
+                }
+
+
+
+            })
+
+
+
+        }
+
+    </script>
+
+
+
+</div>

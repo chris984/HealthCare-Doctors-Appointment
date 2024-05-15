@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HealthcareDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="HealthcareDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdminTables" EntityType="HealthcareDBModel.AdminTable" />
+    <EntitySet Name="Appointment_Status" EntityType="HealthcareDBModel.Appointment_Status" />
+    <EntitySet Name="AppointmentTables" EntityType="HealthcareDBModel.AppointmentTable" />
+    <EntitySet Name="sysdiagrams" EntityType="HealthcareDBModel.sysdiagram" />
+    <EntitySet Name="Doctor_Schedule_Table" EntityType="HealthcareDBModel.Doctor_Schedule_Table" />
+    <EntitySet Name="Doctor_Table" EntityType="HealthcareDBModel.Doctor_Table" />
+    <EntitySet Name="Specialties" EntityType="HealthcareDBModel.Specialty" />
+    <EntitySet Name="Patient_Gender" EntityType="HealthcareDBModel.Patient_Gender" />
+    <EntitySet Name="Patient_Status" EntityType="HealthcareDBModel.Patient_Status" />
+    <EntitySet Name="PatientTables" EntityType="HealthcareDBModel.PatientTable" />
+    <EntitySet Name="Role_Type" EntityType="HealthcareDBModel.Role_Type" />
+    <EntitySet Name="User_Table" EntityType="HealthcareDBModel.User_Table" />
+    <AssociationSet Name="FK_AdminTable_User_Table" Association="HealthcareDBModel.FK_AdminTable_User_Table">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="AdminTable" EntitySet="AdminTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppointmentTable_Appointment_Status" Association="HealthcareDBModel.FK_AppointmentTable_Appointment_Status">
+      <End Role="Appointment_Status" EntitySet="Appointment_Status" />
+      <End Role="AppointmentTable" EntitySet="AppointmentTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppointmentTable_Doctor_Schedule_Table" Association="HealthcareDBModel.FK_AppointmentTable_Doctor_Schedule_Table">
+      <End Role="Doctor_Schedule_Table" EntitySet="Doctor_Schedule_Table" />
+      <End Role="AppointmentTable" EntitySet="AppointmentTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppointmentTable_Doctor_Table" Association="HealthcareDBModel.FK_AppointmentTable_Doctor_Table">
+      <End Role="Doctor_Table" EntitySet="Doctor_Table" />
+      <End Role="AppointmentTable" EntitySet="AppointmentTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppointmentTable_PatientTable" Association="HealthcareDBModel.FK_AppointmentTable_PatientTable">
+      <End Role="PatientTable" EntitySet="PatientTables" />
+      <End Role="AppointmentTable" EntitySet="AppointmentTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Schedule_Table_Doctor_Table" Association="HealthcareDBModel.FK_Doctor_Schedule_Table_Doctor_Table">
+      <End Role="Doctor_Table" EntitySet="Doctor_Table" />
+      <End Role="Doctor_Schedule_Table" EntitySet="Doctor_Schedule_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Table_User_Table" Association="HealthcareDBModel.FK_Doctor_Table_User_Table">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="Doctor_Table" EntitySet="Doctor_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientTable_Patient_Gender" Association="HealthcareDBModel.FK_PatientTable_Patient_Gender">
+      <End Role="Patient_Gender" EntitySet="Patient_Gender" />
+      <End Role="PatientTable" EntitySet="PatientTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientTable_Patient_Status" Association="HealthcareDBModel.FK_PatientTable_Patient_Status">
+      <End Role="Patient_Status" EntitySet="Patient_Status" />
+      <End Role="PatientTable" EntitySet="PatientTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientTable_User_Table" Association="HealthcareDBModel.FK_PatientTable_User_Table">
+      <End Role="User_Table" EntitySet="User_Table" />
+      <End Role="PatientTable" EntitySet="PatientTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Table_Role_Type" Association="HealthcareDBModel.FK_User_Table_Role_Type">
+      <End Role="Role_Type" EntitySet="Role_Type" />
+      <End Role="User_Table" EntitySet="User_Table" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AdminTable">
+    <Key>
+      <PropertyRef Name="Admin_Id" />
+    </Key>
+    <Property Name="Admin_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Hospital_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Hospital_Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Hospital_Contact_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User_Table" Relationship="HealthcareDBModel.FK_AdminTable_User_Table" FromRole="AdminTable" ToRole="User_Table" />
+  </EntityType>
+  <EntityType Name="Appointment_Status">
+    <Key>
+      <PropertyRef Name="Appointment_Status_Id" />
+    </Key>
+    <Property Name="Appointment_Status_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AppointmentTables" Relationship="HealthcareDBModel.FK_AppointmentTable_Appointment_Status" FromRole="Appointment_Status" ToRole="AppointmentTable" />
+  </EntityType>
+  <EntityType Name="AppointmentTable">
+    <Key>
+      <PropertyRef Name="Appointment_Id" />
+    </Key>
+    <Property Name="Appointment_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Doctor_Id" Type="Int32" />
+    <Property Name="Patient_Id" Type="Int32" />
+    <Property Name="Doctor_Schedule_Id" Type="Int32" />
+    <Property Name="Reason_For_Appointment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Appointment_Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Appointment_Status_Id" Type="Int32" />
+    <Property Name="Doctor_Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Appointment_Status" Relationship="HealthcareDBModel.FK_AppointmentTable_Appointment_Status" FromRole="AppointmentTable" ToRole="Appointment_Status" />
+    <NavigationProperty Name="Doctor_Schedule_Table" Relationship="HealthcareDBModel.FK_AppointmentTable_Doctor_Schedule_Table" FromRole="AppointmentTable" ToRole="Doctor_Schedule_Table" />
+    <NavigationProperty Name="Doctor_Table" Relationship="HealthcareDBModel.FK_AppointmentTable_Doctor_Table" FromRole="AppointmentTable" ToRole="Doctor_Table" />
+    <NavigationProperty Name="PatientTable" Relationship="HealthcareDBModel.FK_AppointmentTable_PatientTable" FromRole="AppointmentTable" ToRole="PatientTable" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Doctor_Schedule_Table">
+    <Key>
+      <PropertyRef Name="Doctor_Schedule_Id" />
+    </Key>
+    <Property Name="Doctor_Schedule_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Doctor_Id" Type="Int32" />
+    <Property Name="Schedule_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Time_start" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Time_end" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AppointmentTables" Relationship="HealthcareDBModel.FK_AppointmentTable_Doctor_Schedule_Table" FromRole="Doctor_Schedule_Table" ToRole="AppointmentTable" />
+    <NavigationProperty Name="Doctor_Table" Relationship="HealthcareDBModel.FK_Doctor_Schedule_Table_Doctor_Table" FromRole="Doctor_Schedule_Table" ToRole="Doctor_Table" />
+  </EntityType>
+  <EntityType Name="Doctor_Table">
+    <Key>
+      <PropertyRef Name="Doctor_Id" />
+    </Key>
+    <Property Name="Doctor_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="Int32" />
+    <Property Name="Doctor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Specialities" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Contact_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date_of_Birth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Img" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AppointmentTables" Relationship="HealthcareDBModel.FK_AppointmentTable_Doctor_Table" FromRole="Doctor_Table" ToRole="AppointmentTable" />
+    <NavigationProperty Name="Doctor_Schedule_Table" Relationship="HealthcareDBModel.FK_Doctor_Schedule_Table_Doctor_Table" FromRole="Doctor_Table" ToRole="Doctor_Schedule_Table" />
+    <NavigationProperty Name="User_Table" Relationship="HealthcareDBModel.FK_Doctor_Table_User_Table" FromRole="Doctor_Table" ToRole="User_Table" />
+  </EntityType>
+  <EntityType Name="Specialty">
+    <Key>
+      <PropertyRef Name="Sp_Id" />
+    </Key>
+    <Property Name="Sp_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Specialties" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Patient_Gender">
+    <Key>
+      <PropertyRef Name="Patient_Gender_Type_Id" />
+    </Key>
+    <Property Name="Patient_Gender_Type_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Patient_gender_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PatientTables" Relationship="HealthcareDBModel.FK_PatientTable_Patient_Gender" FromRole="Patient_Gender" ToRole="PatientTable" />
+  </EntityType>
+  <EntityType Name="Patient_Status">
+    <Key>
+      <PropertyRef Name="Patient_Marital_Status_Id" />
+    </Key>
+    <Property Name="Patient_Marital_Status_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Patient_Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PatientTables" Relationship="HealthcareDBModel.FK_PatientTable_Patient_Status" FromRole="Patient_Status" ToRole="PatientTable" />
+  </EntityType>
+  <EntityType Name="PatientTable">
+    <Key>
+      <PropertyRef Name="Patient_Id" />
+    </Key>
+    <Property Name="Patient_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="Int32" />
+    <Property Name="Patient_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Patient_Date_of_Birth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Patient_Gender_Type_Id" Type="Int32" />
+    <Property Name="Patient_Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Patient_Phone_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Patient_Marital_Status_Id" Type="Int32" />
+    <NavigationProperty Name="AppointmentTables" Relationship="HealthcareDBModel.FK_AppointmentTable_PatientTable" FromRole="PatientTable" ToRole="AppointmentTable" />
+    <NavigationProperty Name="Patient_Gender" Relationship="HealthcareDBModel.FK_PatientTable_Patient_Gender" FromRole="PatientTable" ToRole="Patient_Gender" />
+    <NavigationProperty Name="Patient_Status" Relationship="HealthcareDBModel.FK_PatientTable_Patient_Status" FromRole="PatientTable" ToRole="Patient_Status" />
+    <NavigationProperty Name="User_Table" Relationship="HealthcareDBModel.FK_PatientTable_User_Table" FromRole="PatientTable" ToRole="User_Table" />
+  </EntityType>
+  <EntityType Name="Role_Type">
+    <Key>
+      <PropertyRef Name="Role_Id" />
+    </Key>
+    <Property Name="Role_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User_Table" Relationship="HealthcareDBModel.FK_User_Table_Role_Type" FromRole="Role_Type" ToRole="User_Table" />
+  </EntityType>
+  <EntityType Name="User_Table">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role_Id" Type="Int32" />
+    <NavigationProperty Name="AdminTables" Relationship="HealthcareDBModel.FK_AdminTable_User_Table" FromRole="User_Table" ToRole="AdminTable" />
+    <NavigationProperty Name="Doctor_Table" Relationship="HealthcareDBModel.FK_Doctor_Table_User_Table" FromRole="User_Table" ToRole="Doctor_Table" />
+    <NavigationProperty Name="PatientTables" Relationship="HealthcareDBModel.FK_PatientTable_User_Table" FromRole="User_Table" ToRole="PatientTable" />
+    <NavigationProperty Name="Role_Type" Relationship="HealthcareDBModel.FK_User_Table_Role_Type" FromRole="User_Table" ToRole="Role_Type" />
+  </EntityType>
+  <Association Name="FK_AdminTable_User_Table">
+    <End Type="HealthcareDBModel.User_Table" Role="User_Table" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.AdminTable" Role="AdminTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="AdminTable">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppointmentTable_Appointment_Status">
+    <End Type="HealthcareDBModel.Appointment_Status" Role="Appointment_Status" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.AppointmentTable" Role="AppointmentTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment_Status">
+        <PropertyRef Name="Appointment_Status_Id" />
+      </Principal>
+      <Dependent Role="AppointmentTable">
+        <PropertyRef Name="Appointment_Status_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppointmentTable_Doctor_Schedule_Table">
+    <End Type="HealthcareDBModel.Doctor_Schedule_Table" Role="Doctor_Schedule_Table" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.AppointmentTable" Role="AppointmentTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor_Schedule_Table">
+        <PropertyRef Name="Doctor_Schedule_Id" />
+      </Principal>
+      <Dependent Role="AppointmentTable">
+        <PropertyRef Name="Doctor_Schedule_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppointmentTable_Doctor_Table">
+    <End Type="HealthcareDBModel.Doctor_Table" Role="Doctor_Table" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.AppointmentTable" Role="AppointmentTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor_Table">
+        <PropertyRef Name="Doctor_Id" />
+      </Principal>
+      <Dependent Role="AppointmentTable">
+        <PropertyRef Name="Doctor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppointmentTable_PatientTable">
+    <End Type="HealthcareDBModel.PatientTable" Role="PatientTable" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.AppointmentTable" Role="AppointmentTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientTable">
+        <PropertyRef Name="Patient_Id" />
+      </Principal>
+      <Dependent Role="AppointmentTable">
+        <PropertyRef Name="Patient_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Schedule_Table_Doctor_Table">
+    <End Type="HealthcareDBModel.Doctor_Table" Role="Doctor_Table" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.Doctor_Schedule_Table" Role="Doctor_Schedule_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor_Table">
+        <PropertyRef Name="Doctor_Id" />
+      </Principal>
+      <Dependent Role="Doctor_Schedule_Table">
+        <PropertyRef Name="Doctor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Table_User_Table">
+    <End Type="HealthcareDBModel.User_Table" Role="User_Table" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.Doctor_Table" Role="Doctor_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="Doctor_Table">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientTable_Patient_Gender">
+    <End Type="HealthcareDBModel.Patient_Gender" Role="Patient_Gender" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.PatientTable" Role="PatientTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient_Gender">
+        <PropertyRef Name="Patient_Gender_Type_Id" />
+      </Principal>
+      <Dependent Role="PatientTable">
+        <PropertyRef Name="Patient_Gender_Type_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientTable_Patient_Status">
+    <End Type="HealthcareDBModel.Patient_Status" Role="Patient_Status" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.PatientTable" Role="PatientTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient_Status">
+        <PropertyRef Name="Patient_Marital_Status_Id" />
+      </Principal>
+      <Dependent Role="PatientTable">
+        <PropertyRef Name="Patient_Marital_Status_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientTable_User_Table">
+    <End Type="HealthcareDBModel.User_Table" Role="User_Table" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.PatientTable" Role="PatientTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_Table">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="PatientTable">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Table_Role_Type">
+    <End Type="HealthcareDBModel.Role_Type" Role="Role_Type" Multiplicity="0..1" />
+    <End Type="HealthcareDBModel.User_Table" Role="User_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role_Type">
+        <PropertyRef Name="Role_Id" />
+      </Principal>
+      <Dependent Role="User_Table">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

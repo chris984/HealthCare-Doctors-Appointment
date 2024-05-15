@@ -1,0 +1,164 @@
+﻿@model HealthCare.Model.PatientViewModel
+@{
+    ViewBag.Title = "Patient";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+
+    <form id="frmPatient">
+        <div class="row">
+            <div class="col-md-8">
+                <span id="message"></span><div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="m-0 font-weight-bold text-primary">Add Patient</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="Patient_First_Name" id="Patient_First_Name" class="form-control" required autocomplete="off" maxlength="30" />
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="Patient_Last_Name" id="Patient_Last_Name" class="form-control" required autocomplete="off" maxlength="30" />
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" name="Patient_Date_of_Birth" id="Patient_Date_of_Birth" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select name="Patient_Gender_Type_Id" id="Patient_Gender_Type_Id" class="form-control" required>
+                                <option selected disabled value="">---Select Gender---</option>
+                                @if (Model != null)
+                                    {
+                       
+                                        foreach (var item in Model.ListofType)
+                                        {
+
+                                            <option value="@item.Patient_Gender_Type_Id">@item.Patient_gender_type</option>
+
+                                        }
+
+                                    }
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="Patient_Marital_Status_Id" id="Patient_Marital_Status_Id" class="form-control" required>
+                                <option selected disabled value="">---Select Status---</option>
+                                @if (Model != null)
+                                    {
+                                        foreach (var item in Model.ListofStatus)
+                                        {
+
+                                            <option value="@item.Patient_Marital_Status_Id">@item.Patient_Status1</option>
+
+                                        }
+
+                                    }
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact No</label>
+                            <input type="number" name="Patient_Phone_No" id="Patient_Phone_No" class="form-control" required autocomplete="off" maxlength="30" />
+                        </div>
+                        <div class="form-group">
+                            <label>Complete Address</label>
+                            <textarea name="Patient_Address" id="Patient_Address" class="form-control" autocomplete="off" required maxlength="200"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="Email" id="Email" class="form-control" required maxlength="30" autocomplete="off"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="Password" id="Password" class="form-control" required maxlength="30" autocomplete="off" />
+                        </div>
+                        @*<div class="form-group">
+                                <label>Upload Photo</label><br />
+                                <input type="file" name="hospital_logo" id="hospital_logo" />
+                                <span id="uploaded_hospital_logo"></span>
+                            </div>*@
+                        <div class="col" align="right">
+                            <input type="button" onclick="btnAddPatient()" class="btn btn-primary btn-block" value="Add" />
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script>
+
+
+
+
+
+    var btnAddPatient = function () {
+
+
+
+
+
+        var myData = $("#frmPatient").serialize();
+
+
+        if (!$("#frmPatient").valid()) {
+
+            return false;
+        }
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Admin/Create_Patient',
+            data: myData,
+            success: function (data) {
+
+                if (data.success === true) {
+
+                    alert(data.message);
+                    window.location.href = "/Admin/List_of_Patient";
+
+                }
+
+            },
+
+            error: function () {
+
+                alert('There was a problem');
+            }
+
+
+
+        })
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+</script>
+

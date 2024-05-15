@@ -1,0 +1,112 @@
+﻿@model HealthCare.Model.ListofTables
+@{
+    ViewBag.Title = "HealthCare";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Profile Details</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+
+
+
+        <!--Start Form-->
+        <form id="">
+
+            @if (Model != null)
+            {
+                foreach (var item in Model.ListofPatient)
+                {
+
+            <div class="row">
+                <div class="bio-row">
+                    <p><span>Full Name </span>: @item.Patient_First_Name</p>
+                </div>
+                <div class="bio-row">
+                    <p><span>Phone Number </span>: @item.Patient_Phone_No</p>
+                </div>
+
+                <div class="bio-row">
+                    <p><span>Birthday </span>: @item.Patient_Date_of_Birth</p>
+                </div>
+
+                <div class="bio-row">
+                    <p><span>Marital Status</span>: @item.Patient_Marital_Status</p>
+                </div>
+                @*<div class="bio-row">
+                    <p><span>Last Name </span>: @item.Patient_Last_Name</p>
+                </div>*@
+                <div class="bio-row">
+                    <p><span>Gender</span>: @item.Patient_Gender_Type</p>
+                </div>
+                <div class="bio-row">
+                    <p><span>Email </span>: @item.Email</p>
+                </div>
+                <div class="bio-row">
+                    <p><span>Address </span>: @item.Patient_Address</p>
+                </div>
+                <div class="bio-row">
+                    <p><span>Password </span>: @item.Password</p>
+                </div>
+            </div>
+
+                    <a href="#myModal" data-toggle="modal" onclick="btnEditPatient( @item.User_Id)" class="btn btn-success">Update Profile</a>
+                }
+
+
+            }
+
+        <input type="hidden" name="HiddenId" id="HiddenId"/>
+
+        </form>
+
+        <!--End Form-->
+
+
+
+    </div>
+
+    <!--The Modal-->
+    <div class="modal fade" id="showPatientDetails">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text text-dark">Update Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv">
+
+
+                </div>
+                @*<div class="modal-footer">
+                        <input type="button" onclick="btnEditSpeciality()" class="btn btn-info" value="Save Changes">
+                        <input type="button" value="Close" data-dismiss="modal" class="btn btn-outline-info" />
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+    <!-- /.card-body -->
+</div>
+
+<script>
+
+    var btnEditPatient = function (UserId) {
+
+
+        var url = "/Patient/EditPatient?User_Id=" + UserId;
+
+        $("#myModalBodyDiv").load(url, function () {
+            $("#showPatientDetails").modal("show");
+
+        })
+
+
+
+    }
+
+
+</script>

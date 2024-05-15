@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "ListofDoctors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Banner starts here-->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="5000">
+            <img src="~/Background/bg-img4.png" class="d-block w-100 img-fluid" alt="...">
+
+            <div class="container">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1 class="text-white">Find Doctor's Best For You</h1>
+                    <p>Make an appointment much easier</p>
+                    <a href="/Home/ListofDoctors" class="btn btn-primary btn-lg btn-block"><i class="fas fa-search mx-4">    Find Doctors</i></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+            <img src="~/Background/741765.png" class="d-block w-100 img-fluid" alt="...">
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+            <img src="~/Background/close-up-doctor-front-bright-background_53419-4416.jpg" class="d-block w-100 img-fluid" alt="...">
+        </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!--Banner ends here-->
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="content-item">
+
+    <div class="my-5 text-center fw-semibold h2">Medical Specialization</div>
+</div>
+
+
+
+<!--Search-->
+<div class="container content-item user">
+    <div class="">
+        <div class="row col-md-12 form-group">
+            <input class="form-control form-control-user p-3" type="search" name="search" value="" placeholder="Search" />
+        </div>
+        @*<div class="col form-group">
+                <a href="#" class="align-items-center btn btn-primary btn-lg btn-block my-4"><i class="fas fa-search mx-4">    Search</i></a>
+            </div>*@
+
+
+    </div>
+
+</div>
+<!--End Of Search-->
+
+<div class="container p-2 my-5 shadow">
+
+    <div class="row p-4">
+        <div class="col-sm-3">
+            <div class="card-body"><img src="~/Background/Choi Bo Youn.jpg" class="h-75 w-75" alt="..." /></div>
+
+
+        </div>
+        <div class="col-sm-6">
+            <div class="h4 mb-1">Doctor's Information</div>
+            <div class="my-1"><span class="h6">Name:  </span> <strong>Dr.</strong>  Choi Bo Youn</div>
+            <div class="my-1"><span class="h6">Email: </span>Choi@gmail.com</div>
+            <div class="my-1"><span class="h6">Degree/Education: </span> MD, Dermatology / College, Standford University</div>
+            <div class="my-1"><span class="h6">Contact No: </span> 09847552321</div>
+            <div id="sched" class="my-1"><a href="#docSched" data-bs-toggle="modal" class="text-info"><span><i class="fas fa-calendar"> Schedule Details</i> </span></a></div>
+            <div class="my-1"><span class="h6">Specialization: </span> <small class="badge bg-secondary">Dermatologist</small></div>
+
+        </div>
+        <div class="col-sm pt-5">
+            <a class="btn btn-outline-warning p-2 d-lg-block mt-5" href="#myModal" data-bs-toggle="modal">Make Appointment</a>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!--The Modal-->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text text-dark">Set Appointment</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <form action="/Home/Testing" method="post">
+                <div class="modal-body">
+
+                    <div class="row mx-auto p-3">
+                        <label>Date:</label>
+                        <input class="form-control" type="date" autocomplete="off" name="date" value="" />
+                    </div>
+                    <div class="row mx-auto p-3">
+                        <label>Time:</label>
+                        <input class="form-control" type="time" autocomplete="off" name="time" value="" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input id="btnClose" type="submit" class="btn btn-danger btn-block" value="Request">
+                    <input type="button" value="Close" data-bs-dismiss="modal" class="btn btn-outline-info" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End of Modal-->
+
+
+
+
+<!--The Doctor Schedule Modal-->
+<div class="modal fade" id="docSched">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text text-dark">Dr. Choi Bo Youn Schedule</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">×</button>
+            </div>
+            <form action="/Home/Testing" method="post">
+                <div class="modal-body">
+
+                    <div class="row mx-auto p-3">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Wednesday</td>
+                                    <td>7:30AM</td>
+                                    <td>12:00PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Monday</td>
+                                    <td>9:30AM</td>
+                                    <td>3:00PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Thursday</td>
+                                    <td>1:30AM</td>
+                                    <td>5:00PM</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Close" data-bs-dismiss="modal" class="btn btn-outline-info" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End of Modal-->

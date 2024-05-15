@@ -1,0 +1,216 @@
+﻿@{
+    Layout = null;
+
+    if (Session["UserId"] == null)
+    {
+        Response.Redirect("/User/Login");
+    }
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <link href="~/Template/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/Template/css/adminlte.min.css" rel="stylesheet" />
+
+    <link href="~/Template/customcss/css.css" rel="stylesheet" />
+    
+    
+
+    <link href="~/FontAwesome/css/all.css" rel="stylesheet" />
+
+
+
+    <!-- Custom fonts for this template-->
+    @*<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">*@
+
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+
+    <link href="~/Content/DataTable/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTable/jquery.dataTables.js"></script>
+
+
+
+    <title>@ViewBag.Title - HealthCare Online Portal</title>
+
+    <style>
+        .error {
+            color: red;
+            /*  float: right;
+          margin-right: 30px;*/
+            font-size: 11pt;
+            width: 100%;
+            border-color: red;
+        }
+    </style>
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @*<span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome </span>
+
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Patient</span>*@
+
+                                <i class="fas fa-cog @*fa-sm*@ @*fa-fw mr-2*@ @*text-gray-400*@"></i>
+
+
+                                @*<img class="img-profile rounded-circle"
+                                    src="~/Background/Choi Bo Youn.jpg">*@
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                @*<a class="dropdown-item" href="AdminProfile">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>*@
+                                @*<div class="dropdown-divider"></div>*@
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-md align-items-center">
+
+
+                    <h2 class="my-lg-5 mx-4">Welcome to LifeCare</h2>
+
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#">@Session["SessionPatientName"]</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarColor02">
+                                <ul class="navbar-nav me-auto">
+                                    @*<li class="nav-item">
+            <a class="nav-link active" href="#">
+                Get Appointment
+
+            </a>
+        </li>*@
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/Patient/Index">View Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/Patient/Get_Appointment">Book Appointment</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/Patient/My_Appointment">My Appointment</a>
+                                    </li>
+                                    @*<li class="nav-item">
+                                        <a class="nav-link" href="/Patient/My_Appointment">Notification <small class="badge bg-danger"> 0</small></a>
+                                    </li>*@
+
+                                </ul>
+
+
+
+
+                            </div>
+                        </div>
+                    </nav>
+
+                    @RenderBody()
+
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            @*<footer class="bg-white">
+                </footer>*@
+
+
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/Patient/Logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Template/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Template/js/sb-admin-2.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</body>
+
+</html>
